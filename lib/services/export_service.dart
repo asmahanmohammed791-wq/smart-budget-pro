@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets' as pw;
+import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import '../models/transaction_model.dart';
 import '../utils/formatters.dart';
@@ -25,7 +25,6 @@ class ExportService {
     String currencySymbol,
   ) async {
     final pdf = pw.Document();
-
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
@@ -35,7 +34,10 @@ class ExportService {
             children: [
               pw.Header(
                 level: 0,
-                child: pw.Text('Smart Budget Pro - Summary Report', style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold)),
+                child: pw.Text(
+                  'Smart Budget Pro - Summary Report',
+                  style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold),
+                ),
               ),
               pw.SizedBox(height: 16),
               pw.Row(
@@ -47,8 +49,8 @@ class ExportService {
                 ],
               ),
               pw.SizedBox(height: 20),
-              pw.TableHelper.fromTextArray(
-                context: context,
+              
+              pw.Table.fromTextArray(
                 data: <List<String>>[
                   <String>['Date', 'Title', 'Category', 'Type', 'Amount'],
                   ...transactions.map((tx) => [

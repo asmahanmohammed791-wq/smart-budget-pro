@@ -51,7 +51,7 @@ class SmartBudgetApp extends StatelessWidget {
       ],
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'models/transaction_model.dart';
 import 'models/savings_goal_model.dart';
 import 'providers/budget_provider.dart';
+import 'screens/home_screen.dart';
 import 'theme/app_theme.dart';
 import 'utils/constants.dart';
 
@@ -51,7 +52,7 @@ class SmartBudgetApp extends StatelessWidget {
       ],
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: HomeScreen(),
+      home: const HomePage(), // 
     );
   }
 }

@@ -27,7 +27,7 @@ class AppConstants {
   ];
 
   static const Map<String, String> currencies = {
-    'USD': '$/',
+    'USD': '$\',
     'EUR': '€',
     'SAR': 'ر.س',
     'EGP': 'ج.م',

@@ -12,14 +12,29 @@ import 'utils/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
 
-  Hive.registerAdapter(TransactionModelAdapter());
-  Hive.registerAdapter(SavingsGoalModelAdapter());
+  try {
+    await Hive.initFlutter();
 
-  await Hive.openBox<TransactionModel>(AppConstants.hiveBoxTransactions);
-  await Hive.openBox<SavingsGoalModel>(AppConstants.hiveBoxGoals);
-  await Hive.openBox(AppConstants.hiveBoxSettings);
+    if (!Hive.isAdapterRegistered(0)) {
+      Hive.registerAdapter(TransactionModelAdapter());
+    }
+    if (!Hive.isAdapterRegistered(1)) {
+      Hive.registerAdapter(SavingsGoalModelAdapter());
+    }
+
+    await Hive.openBox<TransactionModel>(AppConstants.hiveBoxTransactions);
+    await Hive.openBox<SavingsGoalModel>(AppConstants.hiveBoxGoals);
+    await Hive.openBox(AppConstants.hiveBoxSettings);
+  } catch (e) {
+    await Hive.deleteBoxFromDisk(AppConstants.hiveBoxTransactions);
+    await Hive.deleteBoxFromDisk(AppConstants.hiveBoxGoals);
+    await Hive.deleteBoxFromDisk(AppConstants.hiveBoxSettings);
+
+    await Hive.openBox<TransactionModel>(AppConstants.hiveBoxTransactions);
+    await Hive.openBox<SavingsGoalModel>(AppConstants.hiveBoxGoals);
+    await Hive.openBox(AppConstants.hiveBoxSettings);
+  }
 
   runApp(
     ChangeNotifierProvider(
